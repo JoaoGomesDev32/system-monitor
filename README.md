@@ -1,35 +1,37 @@
 # 🖥️ System Monitor Dashboard
 
-Dashboard de monitorização de sistema em tempo real, com backend em Python e frontend em Next.js comunicando via WebSockets.
+A real-time system monitoring dashboard built with a Python backend and Next.js frontend, communicating via WebSockets.
 
 ![Dashboard Preview](docs/system-monitor.png)
+![Status](https://img.shields.io/badge/status-live-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED)
 
-## 📸 Preview
+## 🌐 Live Demo
 
-> Dashboard a monitorizar CPU, memória, disco, rede e processos em tempo real.
+**[system-monitor-ochre.vercel.app](https://system-monitor-ochre.vercel.app/)**
 
 ## 🚀 Features
 
-- **CPU** — uso geral, por núcleo e histórico em gráfico de linha
-- **Memória** — RAM e Swap com barras de progresso dinâmicas
-- **Disco** — uso por partição
-- **Rede** — velocidade de upload/download em tempo real
-- **Processos** — top 15 processos ordenados por CPU
-- **WebSocket** — atualização automática a cada 2 segundos
-- **Reconexão automática** — recupera a ligação sem reload da página
+- **CPU** — overall usage, per-core breakdown and historical line chart
+- **Memory** — RAM and Swap with dynamic progress bars
+- **Disk** — usage per partition
+- **Network** — real-time upload/download speed
+- **Processes** — top 15 processes sorted by CPU usage
+- **WebSocket** — automatic updates every 2 seconds
+- **Auto-reconnect** — recovers connection without page reload
 
-## 🛠️ Stack
+## 🛠️ Tech Stack
 
-| Camada | Tecnologia |
+| Layer | Technology |
 |---|---|
 | Frontend | Next.js 16, TypeScript, Tailwind CSS, Recharts |
 | Backend | Python 3.12, FastAPI, WebSockets, psutil |
-| Infra | Docker, Docker Compose |
+| Infrastructure | Docker, Docker Compose, Vercel, Render |
 
-## 📁 Estruturasystem-monitor/
+## 📁 Project Structure
+
 ├── backend/
 │   ├── main.py          # API REST + WebSocket
 │   ├── metrics.py       # Coleta de métricas do sistema
@@ -41,9 +43,11 @@ Dashboard de monitorização de sistema em tempo real, com backend em Python e f
 │   ├── hooks/           # useSystemMetrics (WebSocket)
 │   ├── types/           # TypeScript interfaces
 │   └── Dockerfile
-└── docker-compose.yml## ⚡ Como correr
+└── docker-compose.yml##
 
-### Com Docker (recomendado)
+## ⚡ Running Locally
+
+### With Docker (recommended)
 
 ```bash
 git clone https://github.com/joagomes/system-monitor
@@ -51,9 +55,9 @@ cd system-monitor
 docker compose up --build
 ```
 
-Acede a `http://localhost:3000`
+Open `http://localhost:3000`
 
-### Sem Docker (desenvolvimento)
+### Without Docker
 
 **Backend:**
 ```bash
@@ -71,7 +75,7 @@ npm install
 npm run dev
 ```
 
-## 🔌 API
+## 🔌 API Reference
 
 | Endpoint | Método | Descrição |
 |---|---|---|
@@ -80,16 +84,17 @@ npm run dev
 | `/api/metrics` | GET | Snapshot das métricas |
 | `/ws` | WebSocket | Stream em tempo real |
 
-## 💡 O que aprendi
+## 💡 What I Learned
 
-- Arquitetura cliente-servidor com WebSockets para comunicação bidirecional em tempo real
-- FastAPI com endpoints async e gestão de múltiplas conexões simultâneas
-- Next.js App Router com TypeScript e hooks personalizados
-- Docker multi-stage builds para imagens de produção otimizadas
-- Docker Compose para orquestração de múltiplos serviços
+- Real-time client-server communication using WebSockets
+- Async FastAPI with multiple simultaneous connection management
+- Next.js App Router with TypeScript and custom hooks
+- Docker multi-stage builds for optimized production images
+- Docker Compose for multi-service orchestration
+- Independent frontend/backend deployment with automatic CI/CD
 
-## 👤 Autor
+## 👤 Author
 
 **João Gomes** — [GitHub](https://github.com/JoaoGomesDev32) · [LinkedIn](https://www.linkedin.com/in/joaofelipedev32/)
 
-> Projeto desenvolvido como parte do meu portfólio de desenvolvimento. Estudante na 42Lisboa.
+> Built as part of my developer portfolio. Student at 42Lisboa.
