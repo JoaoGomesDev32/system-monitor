@@ -1,0 +1,23 @@
+services:
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    # pid: host permite ao psutil ler os processos do sistema host
+    # Sem isso só vê os processos dentro do próprio container
+    pid: "host"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Dentro do Docker, "localhost" refere-se ao próprio container
+      # "backend" é o nome do serviço acima — o Docker resolve o DNS automaticamente
+      - NEXT_PUBLIC_WS_URL=ws://backend:8000/ws
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
