@@ -10,7 +10,7 @@ export function useSystemMetrics() {
   const [history, setHistory]   = useState<SystemMetrics[]>([])
   const [status, setStatus]     = useState<ConnectionStatus>('connecting')
   const wsRef                   = useRef<WebSocket | null>(null)
-  const retryRef                = useRef<ReturnType<typeof setTimeout>>()
+  const retryRef                = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return
@@ -18,7 +18,7 @@ export function useSystemMetrics() {
     const ws  = new WebSocket(url)
     wsRef.current = ws
 
-    ws.onopen    = () => { setStatus('connected'); clearTimeout(retryRef.current) }
+    ws.onopen    = () => { setStatus('connected'); if (retryRef.current) clearTimeout(retryRef.current) }
     ws.onmessage = (e) => {
       const data: SystemMetrics = JSON.parse(e.data)
       setMetrics(data)
@@ -30,7 +30,10 @@ export function useSystemMetrics() {
 
   useEffect(() => {
     connect()
-    return () => { clearTimeout(retryRef.current); wsRef.current?.close() }
+    return () => {
+      if (retryRef.current) clearTimeout(retryRef.current)
+      wsRef.current?.close()
+    }
   }, [connect])
 
   return { metrics, history, status }
